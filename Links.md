@@ -2,3 +2,5 @@
 
 [20-58-136 7.8:1 planetary gearset](https://geargenerator.com/#TJUruEYr6Cas8YcJhCi@aujUKHYMslpCMOvyLcrItlhu$UN$GPb)
 
+[20-55-130 7.5:1 planetary gearset](https://geargenerator.com/#9fMg5XngS$kFN48mqYjPa2BjlQdnTji5z9BZ@YJJSpWwQMny0XB)
+
