@@ -1,21 +1,21 @@
 "teeth count
 t_s = 20', 't_p = 55', 't_r = 130
 "gear characteristics
-module = 1
-'diametral pitch - 'dp = 25.4/module
+module = 1mm
+'diametral pitch - 'dp = 25.4mm÷in/module|in^-1
 'pressure angle - 'pa = 20deg
 
 "pitch diameter
-d_sun = t_s*module*mm|in
-d_planet = t_p*module*mm|in
-d_ring = t_r*module*mm|in
+d_sun = t_s*module|in
+d_planet = t_p*module|in
+d_ring = t_r*module|in
 
 "bending stress
 'power - 'H = 12.3kW|hp
 'gear speed - 'n = 18617/min
 'pitch-line velo - 'V = pi*d_sun*n/(12in÷ft)|ft/min' -- (Eq 13-34)
-
 'tangential transmitted load - 'W_t = 33000*(H/V)|lbf' -- (Eq 13-35)
+
 'overload factor - 'K_o = 2.25' -- (Fig 14-16)
 
 'quality number - 'Q_v = 8' --> 'B = 0.25*(12 - Q_v)^(2/3)'; 'A = 50 + 56*(1 - B)' -- (Eq 14-27)
@@ -24,13 +24,22 @@ d_ring = t_r*module*mm|in
 'size factor - 'K_s = 1/(0.879*(d_sun/in)^(-0.107))
 'transverse diametral pitch - 'P_d = dp
 'face width - 'F = 0.5in
+
 C_mc = 1', 'C_pf = F/(10*d_sun) - 0.025', 'C_pm = 1', 'C_ma = 0.247 + 0.0167*(F/in) - 0.765*10^(-4)*(F/in)^2', 'C_e = 1
 'load-distribution factor - 'K_m = 1 + C_mc*(C_pf*C_pm + C_ma*C_e)' -- (Eq 14-30)
 
-'rim-thickness factor - 'K_b = 
+'backup ratio - 'm_b = 2mm/6mm
+
+#if m_b < 1.2
+	'rim-thickness factor - 'K_b = 1.6*ln(2.242/(m_b))
+#else
+	'rim-thickness factor - 'K_b = 1
+#end if
+
+
 'geometry factor for bending stress - 'J = 0.33
 
-σ_bending = W_t*K_o*K_v*K_s*(P_d/F)*(K_m*K_b/J)'(Eq 14-15)
+σ_bending = W_t*K_o*K_v*K_s*(P_d/F)*(K_m*K_b/J)|GPa'(Eq 14-15)
 
 "contact stress
 'elastic coefficient - 'C_p = 'material prop
