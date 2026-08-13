@@ -6,16 +6,20 @@ module = 1mm
 'pressure angle - 'pa = 20deg
 
 "pitch diameter
-d_sun = t_s*module|in
-d_planet = t_p*module|in
-d_ring = t_r*module|in
+d_sun = t_s*module
+d_planet = t_p*module
+d_ring = t_r*module
 
 "bending stress
-'power - 'H = 12.3kW|hp
+'power - 'H = 12.3kW
 'gear speed - 'n = 18617/min
 'pitch-line velo - 'V = pi*d_sun*n/(12in÷ft)|ft/min' -- (Eq 13-34)
-'tangential transmitted load - 'W_t = 33000*(H/V)|lbf' -- (Eq 13-35)
-
+'<ins>tangential transmitted load</ins> - 'W_t = H/V|lbf' -- (Eq 13-35/13-36)
+#hide
+"dropped 12 from V equation (13-34) since it's a unit conversion
+"dropped 33000/60000 from W_t equation (13-35/36) since it's a unit conversion
+#show
+'-----------------------------------------------------
 'overload factor - 'K_o = 2.25' -- (Fig 14-16)
 
 'quality number - 'Q_v = 8' --> 'B = 0.25*(12 - Q_v)^(2/3)'; 'A = 50 + 56*(1 - B)' -- (Eq 14-27)
@@ -51,3 +55,4 @@ C_mc = 1', 'C_pf = F/(10*d_sun) - 0.025', 'C_pm = 1', 'C_ma = 0.247 + 0.0167*(F/
 'geomtery factor for pitting resistance - 'I = (cos(pa)*sin(pa)/(2*m_N))*(m_G/(m_G + 1))
 
 σ_contact = C_p*sqrt(W_t*K_o*K_v*K_s*(K_m/(d_p*F))*(C_F/I))'(Eq 14-15)
+
