@@ -13,46 +13,78 @@ d_ring = t_r*module
 "bending stress
 'power - 'H = 12.3kW
 'gear speed - 'n = 18617/min
-'pitch-line velo - 'V = pi*d_sun*n/(12in÷ft)|ft/min' -- (Eq 13-34)
-'<ins>tangential transmitted load</ins> - 'W_t = H/V|lbf' -- (Eq 13-35/13-36)
-#hide
-"dropped 12 from V equation (13-34) since it's a unit conversion
-"dropped 33000/60000 from W_t equation (13-35/36) since it's a unit conversion
-#show
+'pitch-line velo - 'V = pi*d_sun*n|ft/min' -- (Eq 13-34)
+'tangential transmitted load - 'W_t = H/V|lbf' -- (Eq 13-35/13-36)
+#def note_Wt$
+	'W_t
+	'- dropped 12 from V equation (13-34) since it''s aunitconversion
+	'- dropped 33000/60000 from W_t equation (13-35/36) since it''s a unit conversion
+#end def
 '-----------------------------------------------------
 'overload factor - 'K_o = 2.25' -- (Fig 14-16)
-
-'quality number - 'Q_v = 8' --> 'B = 0.25*(12 - Q_v)^(2/3)'; 'A = 50 + 56*(1 - B)' -- (Eq 14-27)
+#def note_Ko$
+	'K_o
+	'- worst case scenario
+#end def
+'-----------------------------------------------------
+'quality number - 'Q_v = 8' --> 'B = 0.25*(12 - Q_v)^(2/3)' --> 'A = 50 + 56*(1 - B)' -- (Eq 14-27)
 'dynamic factor - 'K_v = ((A + sqrt(V/(ft÷min)))/A)^B' -- (Eq 14-28)
-
-'size factor - 'K_s = 1/(0.879*(d_sun/in)^(-0.107))
+#def note_Kv$
+	'K_v
+	'- quality numbers 3 to 7 include most commercial quality gears
+	'- quality numbers 8 to 12 are of precision quality
+#end def
+'-----------------------------------------------------
 'transverse diametral pitch - 'P_d = dp
 'face width - 'F = 0.5in
-
+'-----------------------------------------------------
+'size factor - 'K_s = 1.192*((F*0.322/P_d)÷in^2)^0.0535
+'-----------------------------------------------------
 C_mc = 1', 'C_pf = F/(10*d_sun) - 0.025', 'C_pm = 1', 'C_ma = 0.247 + 0.0167*(F/in) - 0.765*10^(-4)*(F/in)^2', 'C_e = 1
 'load-distribution factor - 'K_m = 1 + C_mc*(C_pf*C_pm + C_ma*C_e)' -- (Eq 14-30)
-
+#def noteKm$
+	'K_m
+	'- C_mc = 1 for crowned teeth; 0.8 for uncrowned
+	'- C_pf = F/(10*d_p)-0.025 if F<= 1 in; F/(10*d_p)-0.0375+0.0125F if F<= 17 in; F/(10*d_p)-0.1109+0.0207F-0.000228F^2 if F<= 40 in
+	'-- if F/(10*d_p)<0.05 use 0.05
+	'- C_pm = 1 for straddle-mounted pinion with S_1∕S < 0.175; 1.1 for S_1∕S >= 0.175
+	'- C_ma coefficients from Fig 14-11
+#end def
+'-----------------------------------------------------
 'backup ratio - 'm_b = 2mm/6mm
-
 #if m_b < 1.2
 	'rim-thickness factor - 'K_b = 1.6*ln(2.242/(m_b))
 #else
 	'rim-thickness factor - 'K_b = 1
 #end if
-
-
-'geometry factor for bending stress - 'J = 0.33
-
-σ_bending = W_t*K_o*K_v*K_s*(P_d/F)*(K_m*K_b/J)|GPa'(Eq 14-15)
+'-----------------------------------------------------
+'geometry factor for bending stress - 'J = 0.33' -- (Fig 14-6)
+'-----------------------------------------------------
+σ_bending = W_t*K_o*K_v*K_s*(P_d/F)*(K_m*K_b/J)|GPa' -- (Eq 14-15)
+#hide
+'NOTES
+note_Wt$
+'-----------------------------------------------------
+note_Ko$
+'-----------------------------------------------------
+note_Kv$
+'-----------------------------------------------------
+noteKm$
+#show
 
 "contact stress
-'elastic coefficient - 'C_p = 'material prop
-'surface condition factor - 'C_f = 1
+'elastic coefficient - 'C_p = 2300*psi^(1÷2)'material prop
+'surface condition factor - 'C_f = 1'starting assumption'
 'pitch diameter - 'd_p = d_sun
-
+'-----------------------------------------------------
 'load-sharing ratio - 'm_N = 1
-'speed ratio - 'm_G = d_planet/d_sun
+'speed ratio - 'm_G = d_planet/d_sun' -- (Eq 14-22)
 'geomtery factor for pitting resistance - 'I = (cos(pa)*sin(pa)/(2*m_N))*(m_G/(m_G + 1))
+#def note_I$
+	'm_N = 1 for spur gears
+	'if external gear I = (cos(pa)*sin(pa)/(2*m_N))*(m_G/(m_G + 1))
+	'if internal gear I = (cos(pa)*sin(pa)/(2*m_N))*(m_G/(m_G - 1))
+#end def
 
-σ_contact = C_p*sqrt(W_t*K_o*K_v*K_s*(K_m/(d_p*F))*(C_F/I))'(Eq 14-15)
+σ_contact = C_p*sqrt(W_t*K_o*K_v*K_s*(K_m/(d_p*F))*(C_f/I))|GPa' -- (Eq 14-15)
 
