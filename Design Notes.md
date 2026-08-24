@@ -1,0 +1,2 @@
+- RC5 or RC6 for sun gear motor shaft spline - [[Machinerys Handbook 32 Digital Edition.pdf#page=667|Machinerys Handbook 32 Digital Edition, p.653]]
+- 
