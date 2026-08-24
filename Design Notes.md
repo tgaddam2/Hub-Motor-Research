@@ -1,2 +1,6 @@
+- evolventdesign.com/pages/spur-gear-generator
+	- pressure angle - 20 degrees
+	- clearance - 0.25mm (0.25\*module)
+	- 
 - RC5 or RC6 for sun gear motor shaft spline - [[Machinerys Handbook 32 Digital Edition.pdf#page=667|Machinerys Handbook 32 Digital Edition, p.653]]
 - 
