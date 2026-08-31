@@ -3,4 +3,9 @@
 	- clearance - 0.25mm (0.25\*module)
 	- 
 - RC5 or RC6 for sun gear motor shaft spline - [[Machinerys Handbook 32 Digital Edition.pdf#page=667|Machinerys Handbook 32 Digital Edition, p.653]]
-- 
+
+- [planet bearings](https://www.skf.com/us/compare-products?designation=61906-2RS1&designation=61906-2RZ&designation=W%2061906-2RS1&language=en&system=metric)
+	- 30mm inner diameter
+	- 47mm outer diameter
+	- 9mm width
+	- 
