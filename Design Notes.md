@@ -8,4 +8,4 @@
 	- 30mm inner diameter
 	- 47mm outer diameter
 	- 9mm width
-	- held
+	- 
